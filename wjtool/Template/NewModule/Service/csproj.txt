@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+  </PropertyGroup>
+
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\03_module\04_DynamicApi\DynamicApi\DynamicApi.csproj" />
+    <ProjectReference Include="..\..\..\03_module\06_Mapster\Mapster\Mapster.csproj" />
+    <ProjectReference Include="..\..\..\03_module\07_Swashbuckle\Swashbuckle\Swashbuckle.csproj" />
+    <ProjectReference Include="..\..\..\03_module\08_Event\Local.Event\Local.Event.csproj" />
+    <ProjectReference Include="..\@(Model.Name).Domain\@(Model.Name).Domain.csproj" />
+  </ItemGroup>
+
+</Project>

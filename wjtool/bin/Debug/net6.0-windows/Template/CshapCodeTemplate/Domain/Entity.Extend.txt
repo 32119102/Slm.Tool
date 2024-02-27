@@ -1,0 +1,5 @@
+﻿namespace @(Model.ModuleModel.Name).Domain.@(Model.EntityName);
+    public partial class @(Model.EntityName)Entity
+    {
+
+    }

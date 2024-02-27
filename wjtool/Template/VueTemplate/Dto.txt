@@ -1,0 +1,137 @@
+﻿@using Data.Abstractions.Judge
+@{
+ var lowerName=EntityJudge.ToLower(Model.EntityName);
+}
+import { OptionResultDto, StatusEnum, TableAbstract, TableDto } from '@@/utils/util.dto';
+import http from '@@/utils/util.http';
+
+/**
+ * 查询
+ */
+export class In@(Model.EntityName)SearchDto {}
+
+/**
+ * 分页
+ */
+export class Out@(Model.EntityName)TableDto extends TableDto {
+@if(@Model.PrimaryKeysNum<2){	
+	@:/**
+	@:* 主键
+	@:*/
+	@:id: @Model.VueType;
+}
+@foreach (var item in @Model.DbColumns){	
+@if(!EntityJudge.IgnoreCol().Contains(@item.ColumnName.ToLower())){	
+	@:/**
+	@:* @item.ColumnDesc
+	@:*/			
+	@:@(item.VueStr);
+}
+}
+}
+
+/**
+ * 分页返回
+ */
+export class @(Model.EntityName)TableDto extends TableAbstract<Out@(Model.EntityName)TableDto>{
+	rows: Out@(Model.EntityName)TableDto[];
+}
+
+
+/**
+ * 新增.编辑
+ */
+export class In@(Model.EntityName)AddUpdateDto {
+@foreach (var item in @Model.DbColumns){	
+@if(!EntityJudge.IgnoreCol().Contains(@item.ColumnName.ToLower())){	
+	@:/**
+	@:* @item.ColumnDesc
+	@:*/
+	@:@(item.VueStr);
+}
+}
+}
+
+//详情
+export class Out@(Model.EntityName)Dto {
+@if(@Model.PrimaryKeysNum<2){	
+	@:/**
+	@:* 主键
+	@:*/
+	@:id: @Model.VueType;
+}
+@foreach (var item in @Model.DbColumns){	
+@if(!EntityJudge.IgnoreCol().Contains(@item.ColumnName.ToLower())){	
+	@:/**
+	@:* @item.ColumnDesc
+	@:*/
+	@:@(item.VueStr);
+}
+}
+}
+
+
+
+//接口
+export class @(Model.EntityName)Api {
+
+	/**
+	 * 分页
+	 * @@param data 查询参数
+	 * @@returns
+	 */
+	static getPage = (data: In@(Model.EntityName)SearchDto): Promise<@(Model.EntityName)TableDto> => {
+		return http.get('/@(Model.ModuleModel.Name)/@(Model.EntityName)/GetPage', data);
+	}
+	/**
+	 * 详情
+	 * @@param id 主键id
+	 * @@returns
+	 */
+	static get = (id: @(Model.VueType)): Promise<In@(Model.EntityName)AddUpdateDto> => {
+		return http.get(`/@(Model.ModuleModel.Name)/@(Model.EntityName)/Get/${id}`);
+	}
+	/**
+	 * 新增
+	 * @@param data 新增实体
+	 * @@returns
+	 */
+	static add = (data: In@(Model.EntityName)AddUpdateDto): Promise<@(Model.VueType)> => {
+		return http.post(`/@(Model.ModuleModel.Name)/@(Model.EntityName)/Add`, data);
+	}
+	/**
+	 * 更新
+	 * @@param id 主表id
+	 * @@param data 更新实体
+	 * @@returns
+	 */
+	static update = (id: @(Model.VueType), data: In@(Model.EntityName)AddUpdateDto): Promise<boolean> => {
+		return http.put(`/@(Model.ModuleModel.Name)/@(Model.EntityName)/Update/${id}`, data);
+	}
+
+	/**
+	 * 删除
+	 * @@param id 主键
+	 * @@returns
+	 */
+	static del = (id: @(Model.VueType)): Promise<boolean> => {
+		return http.delete(`/@(Model.ModuleModel.Name)/@(Model.EntityName)/Del/${id}`);
+	}
+	/**
+	 * 批量删除
+	 * @@param data 删除参数
+	 * @@returns
+	 */
+	static batchDel = (data: object): Promise<boolean> => {
+		return http.post(`/@(Model.ModuleModel.Name)/@(Model.EntityName)/BatchDel`, data);
+	}
+	/**
+	 * 下拉
+	 * @@param data 参数
+	 * @@returns
+	 */
+	static getSelect(): Promise<OptionResultDto<null>[]> {
+		return http.get(`/@(Model.ModuleModel.Name)/@(Model.EntityName)/GetSelect`);
+	}
+
+}

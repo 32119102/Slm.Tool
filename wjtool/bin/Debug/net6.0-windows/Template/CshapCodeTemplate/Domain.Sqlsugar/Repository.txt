@@ -1,0 +1,27 @@
+﻿@using Data.Abstractions.Judge
+@{
+   var baseStr= EntityJudge.Repository(@Model);   
+}
+using SqlSugar;
+using @(Model.ModuleModel.Name).Domain.@(Model.EntityName);
+using Wj.Data.Abstractions;
+using Wj.Data.Core.Extensions;
+using Wj.Data.Core.Repository;
+using Wj.Utils.Pagination;
+
+namespace @(Model.ModuleModel.Name).Domain.Sqlsugar.@(Model.EntityName);
+
+    /// <summary>
+    /// 角色仓储
+    /// </summary>
+    public class @(Model.EntityName)Repository : RepositoryAbstract<@(Model.EntityName)Entity>, I@(Model.EntityName)Repository
+    {
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="tran"></param>
+        public @(Model.EntityName)Repository(ITran tran) : base(tran)
+        {
+        }
+    
+    }

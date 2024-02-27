@@ -1,0 +1,67 @@
+﻿@using Data.Abstractions.Judge
+@{
+ var pTyte=EntityJudge.ToFirstUpper(Model.CShareType);
+}
+
+using @(Model.ModuleModel.Name).Application.Contracts.@(Model.EntityName).Dto;
+using Wj.Utils.Models;
+using Wj.Utils.Pagination;
+
+namespace @(Model.ModuleModel.Name).Application.Contracts.@(Model.EntityName);
+
+    /// <summary>
+    /// @(Model.TableDesc)接口服务
+    /// </summary>
+    public interface I@(Model.EntityName)Service 
+    {
+        /// <summary>
+        /// 分页
+        /// </summary>
+        /// <param name="dto">查询dto</param>
+        /// <returns></returns>
+        Task<ResultModel<QueryResultModel<Out@(Model.EntityName)TableDto>>> GetPageAsync(In@(Model.EntityName)SearchDto dto);
+
+
+        /// <summary>
+        /// 详情
+        /// </summary>
+        /// <param name="id">主键id</param>
+        /// <returns></returns>
+        Task<ResultModel<Out@(Model.EntityName)Dto>> GetAsync(@Model.CShareType id);
+
+        /// <summary>
+        /// 新增
+        /// </summary>
+        /// <param name="dto">新增dto</param>
+        /// <returns></returns>
+        Task<ResultModel<@Model.CShareType>> AddAsync(In@(Model.EntityName)AddUpdateDto dto);
+
+        /// <summary>
+        /// 编辑
+        /// </summary>
+        /// <param name="id">主键id</param>
+        /// <param name="dto">修改dto</param>
+        /// <returns></returns>
+        Task<ResultModel<bool>> UpdateAsync(@Model.CShareType id, In@(Model.EntityName)AddUpdateDto dto);
+
+
+        /// <summary>
+        /// 删除
+        /// </summary>
+        /// <param name="id">主键id</param>
+        /// <returns></returns>
+        Task<ResultModel<bool>> DelAsync(@Model.CShareType id);
+
+        /// <summary>
+        /// 删除集合
+        /// </summary>
+        /// <param name="dto">主键id集合</param>
+        /// <returns></returns>
+        Task<ResultModel<bool>>  BatchDelAsync(DelDto@(pTyte) dto);
+
+        /// <summary>
+        /// 获取下拉框数据
+        /// </summary>
+        /// <returns></returns>
+        Task<ResultModel<List<OptionResultModel>>> GetSelectAsync();
+    }

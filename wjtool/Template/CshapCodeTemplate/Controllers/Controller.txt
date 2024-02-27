@@ -1,0 +1,116 @@
+﻿@using Data.Abstractions.Judge
+@{
+ var lowerName=EntityJudge.ToLower(Model.EntityName);
+ var pTyte=EntityJudge.ToFirstUpper(Model.CShareType);
+}
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
+using @(Model.ModuleModel.Name).Application.Contracts.@(Model.EntityName);
+using @(Model.ModuleModel.Name).Application.Contracts.@(Model.EntityName).Dto;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Wj.Utils.Models;
+using Wj.Utils.Pagination;
+using Wj.Utils.Annotations;
+
+namespace @(Model.ModuleModel.Name).HttpApi.Controllers
+{
+    /// <summary>
+    /// @(Model.TableDesc)管理
+    /// </summary>
+    [SwaggerTag("@(Model.TableDesc)管理")]
+    public class @(Model.EntityName)Controller : BaseController
+    {
+        private readonly I@(Model.EntityName)Service _@(lowerName)Service;
+
+        /// <summary>
+        /// 构造函数 
+        /// </summary>
+        /// <param name="@(lowerName)Service"></param>
+        public @(Model.EntityName)Controller(I@(Model.EntityName)Service @(lowerName)Service)
+        {
+            this._@(lowerName)Service = @(lowerName)Service;
+        }
+        /// <summary>
+        /// 分页
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<IResultModel<QueryResultModel<Out@(Model.EntityName)TableDto>>> GetPage([FromQuery] In@(Model.EntityName)SearchDto dto)
+        {
+            return await _@(lowerName)Service.GetPageAsync(dto);
+        }
+
+        /// <summary>
+        /// 详情
+        /// </summary>
+        /// <param name="id">主键id</param>
+        /// <returns></returns>
+        [HttpGet("{id:@Model.CShareType}")]
+        [AllowWhenAuthenticated]
+        public async Task<IResultModel<Out@(Model.EntityName)Dto>> Get(@Model.CShareType id)
+        {
+            return await _@(lowerName)Service.GetAsync(id);
+        }
+
+        /// <summary>
+        /// 新增
+        /// </summary>
+        /// <param name="dto">新增dto</param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IResultModel<@Model.CShareType>> Add(In@(Model.EntityName)AddUpdateDto dto)
+        {
+            return await _@(lowerName)Service.AddAsync(dto);
+        }
+
+        /// <summary>
+        /// 编辑 
+        /// </summary>
+        /// <param name="id">主键id</param>
+        /// <param name="dto">修改dto</param>
+        /// <returns></returns>
+        [HttpPut("{id:@Model.CShareType}")]
+        public async Task<IResultModel<bool>> Update(@Model.CShareType id,In@(Model.EntityName)AddUpdateDto dto)
+        {
+            return await _@(lowerName)Service.UpdateAsync(id,dto);
+        }
+
+        /// <summary>
+        /// 删除
+        /// </summary>
+        /// <param name="id">主键id</param>
+        /// <returns></returns>
+        [HttpDelete("{id:@Model.CShareType}")]
+        public async Task<IResultModel<bool>> Del(@Model.CShareType id)
+        {
+            return await _@(lowerName)Service.DelAsync(id);
+        }
+
+        /// <summary>
+        /// 删除集合
+        /// </summary>
+        /// <param name="dto">删除dto</param>
+        /// <returns></returns>
+        [HttpDelete]
+        public async Task<IResultModel<bool>> BatchDel(DelDto@(pTyte) dto)
+        {
+            return await _@(lowerName)Service.BatchDelAsync(dto);
+        }
+
+         /// <summary>
+        /// 获取下拉框数据
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [AllowWhenAuthenticated]
+        public async Task<IResultModel<List<OptionResultModel>>> GetSelect()
+        {
+            return await _@(lowerName)Service.GetSelectAsync();
+        }
+    }
+}

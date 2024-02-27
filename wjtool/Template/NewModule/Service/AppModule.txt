@@ -1,0 +1,19 @@
+﻿using @(Model.Name).Application.Contracts;
+using @(Model.Name).Domain;
+using Wj.Modularity.Core;
+using Wj.Modularity.Abstractions;
+
+namespace @(Model.Name).Application;
+    /// <summary>
+    /// 服务实现
+    /// </summary>
+    [DependsOn(
+       typeof(@(Model.Name)DomainModule),
+       typeof(@(Model.Name)ApplicationContractsModule)
+    )]
+    public class @(Model.Name)ApplicationModule : AppModule
+    {
+
+    }
+
+    

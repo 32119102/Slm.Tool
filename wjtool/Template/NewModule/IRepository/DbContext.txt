@@ -1,0 +1,11 @@
+﻿using SqlSugar;
+
+namespace @(Model.Name).Domain;            
+
+/// <summary>
+/// 使用上下文
+/// </summary>
+public class @(Model.Name)DbContext : SugarUnitOfWork
+{
+    //public DbSet<UserEntity> UserEntitys { get; set; }
+}

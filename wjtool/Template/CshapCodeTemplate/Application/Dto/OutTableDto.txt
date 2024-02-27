@@ -1,0 +1,24 @@
+﻿@using Data.Abstractions.Judge
+using @(Model.ModuleModel.Name).Domain.Shared;
+using Wj.Utils.Models;
+
+namespace @(Model.ModuleModel.Name).Application.@(Model.EntityName).Dto;
+
+    /// <summary>
+    /// 表格Dto
+    /// </summary>
+    public class Out@(Model.EntityName)TableDto:TableDto
+    {
+      
+
+         @foreach (var item in @Model.DbColumns)
+	{	
+		@if(!EntityJudge.IgnoreCol().Contains(@item.ColumnName.ToLower())){	
+		@:/// <summary>
+		@:/// @item.ColumnDesc
+		@:/// </summary>				
+		@:public @EntityJudge.GetIsNull(item) @(EntityJudge.ToUpper(item.ColumnName))  { get; set; }
+		@:      
+		}
+	  }
+    }

@@ -1,0 +1,35 @@
+﻿
+using Microsoft.Extensions.DependencyInjection;
+using SqlSugar;
+using Wj.Modularity.Abstractions;
+using Wj.Modularity.Core;
+using Wj.Utils;
+using Wj.Utils.Helpers;
+using @(Model.Name).Domain.Shared;
+
+namespace @(Model.Name).Domain;
+    /// <summary>
+    /// 领域接口实体层
+    /// </summary>
+    [DependsOn(
+        typeof(@(Model.Name)DomainSharedModule)
+    )]
+    public class @(Model.Name)DomainModule : AppModule
+    {
+
+        public override void PostConfigureServices()
+        {
+            //注入工作单元
+            InternalApp.InternalServices!.AddScoped<ISugarUnitOfWork<@(Model.Name)DbContext>>(o =>
+            {
+                var sqlSugar = o.GetService<ISqlSugarClient>();
+                var context = new SugarUnitOfWork<@(Model.Name)DbContext>(sqlSugar);
+                return context;
+            });
+
+            ConsoleHelper.WriteColorLine("@(Model.Name)DomainModule(PostConfigureServices)==========", ConsoleColor.Green);
+            ConsoleHelper.WriteColorLine("领域层设置工作单元信息", ConsoleColor.Green);
+
+        }
+
+    }

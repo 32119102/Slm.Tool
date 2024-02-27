@@ -1,0 +1,15 @@
+﻿using @(Model.Name).Domain.Shared;
+using Wj.Modularity.Abstractions;
+using Wj.Modularity.Core;
+
+namespace @(Model.Name).Application.Contracts;
+    /// <summary>
+    /// 服务接口
+    /// </summary>
+    [DependsOn(
+       typeof(@(Model.Name)DomainSharedModule)
+   )]
+    public class @(Model.Name)ApplicationContractsModule : AppModule
+    {
+
+    }

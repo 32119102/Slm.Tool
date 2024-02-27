@@ -1,0 +1,48 @@
+﻿using @(Model.Name).Application;
+using @(Model.Name).Domain.Sqlsugar;
+using Wj.Modularity.Abstractions;
+using Wj.Modularity.Core;
+using Wj.Utils.Helpers;
+using Wj.Utils.ModuleConfig.Options;
+using Wj.Utils.ModuleConfig;
+
+namespace @(Model.Name).HttpApi;
+
+    /// <summary>
+    /// 集成Controller
+    /// </summary>
+    [DependsOn(
+        typeof(@(Model.Name)ApplicationModule),
+        typeof(@(Model.Name)DomainSqlsugarModule)
+   )]
+    public class @(Model.Name)HttpApiModule : AppModule
+    {
+        public override void ConfigureServices()
+        {
+            SwashbuckleOption swashbuckleOption = new SwashbuckleOption()
+            {
+                Code = "@(Model.Name)",
+                Version = "1.0",
+                Name = "模块管理",
+                Description = "模块管理模块",
+                AssemblyName = new List<string>
+                 {
+                  "Utils",
+                  "Data.Core",
+                  "@(Model.Name).HttpApi",
+                  "@(Model.Name).Application",
+                  "@(Model.Name).Application.Contracts",
+                  "@(Model.Name).Domain",
+                  "@(Model.Name).Domain.Shared",
+                 }
+            };
+            SwashbuckleCollection.Add(swashbuckleOption);
+
+            ConsoleHelper.WriteColorLine("@(Model.Name)HttpApiModule(ConfigureServices)==========", ConsoleColor.Green);
+            ConsoleHelper.WriteColorLine("模块集成配置", ConsoleColor.Green);
+        }
+
+
+
+
+    }

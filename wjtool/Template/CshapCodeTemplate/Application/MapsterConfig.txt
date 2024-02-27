@@ -1,0 +1,35 @@
+﻿using Mapster;
+using @(Model.ModuleModel.Name).Application.@(Model.EntityName).Dto;
+using @(Model.ModuleModel.Name).Domain.@(Model.EntityName);
+using Wj.Mapster;
+using Wj.Utils.Extensions;
+using Wj.Utils.Pagination;
+using Wj.Utils.Models;
+
+namespace @(Model.ModuleModel.Name).Application.@(Model.EntityName);
+     /// <summary>
+    /// 映射
+    /// </summary>
+    public class MapsterConfig : IMapsterConfig
+    {
+         /// <summary>
+        /// 实体映射
+        /// </summary>
+        /// <param name="cfg"></param>
+        public void Bind(TypeAdapterConfig cfg)
+        {
+            //分页
+            cfg.NewConfig<@(Model.EntityName)Entity, Out@(Model.EntityName)TableDto>();
+            //详情
+            cfg.NewConfig<@(Model.EntityName)Entity,Out@(Model.EntityName)Dto>();
+            //新增
+            cfg.NewConfig<In@(Model.EntityName)Dto, @(Model.EntityName)Entity>();
+
+            //下拉框
+            cfg.NewConfig<@(Model.EntityName)Entity, OptionResultModel>()
+                //.Map(dest => dest.Label, src =>src.XX) //需要自己完成
+                  //.Map(dest => dest.Value, src => src.Id.ToString())
+                  ;
+            
+        }
+    }

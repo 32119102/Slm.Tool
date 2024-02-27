@@ -1,0 +1,45 @@
+﻿using System.Reflection;
+using Wj.Modularity.Abstractions;
+using Wj.Utils.Extensions;
+using Wj.Utils.Helpers;
+using Wj.Utils.Models;
+using Wj.Utils.ModuleConfig;
+using Wj.Utils.ModuleConfig.Options;
+
+namespace @(Model.Name).Domain.Shared;
+    /// <summary>
+    /// 枚举模块设置
+    /// </summary>
+    public class @(Model.Name)DomainSharedModule : AppModule
+    {
+        public override void ConfigureServices()
+        {
+            //注册枚举
+            var enumTypes = Assembly.GetAssembly(typeof(@(Model.Name)DomainSharedModule)).GetTypes().Where(a => a.IsEnum);
+       
+            foreach (var enumType in enumTypes)
+            {
+                var options = Enum.GetValues(enumType)
+                    .Cast<Enum>().
+                    Where(m => !m.ToString().EqualsIgnoreCase("UnKnown"))
+                    .Select(x => new OptionResultModel
+                {
+                    Label = x.ToDescription(),
+                    Value = x
+                }).ToList();
+
+
+                ModuleEnumDescriptor moduleEnumDescriptor=new ModuleEnumDescriptor();
+                moduleEnumDescriptor.ModuleName = "@(Model.Name)";
+                moduleEnumDescriptor.Name=enumType.Name;
+                moduleEnumDescriptor.Type = enumType;
+                moduleEnumDescriptor.Options=options;
+                ModuleEnumDescriptorCollection.Add(moduleEnumDescriptor);
+
+                
+            }
+
+            ConsoleHelper.WriteColorLine("@(Model.Name)DomainSharedModule(ConfigureServices)==========", ConsoleColor.Green);
+            ConsoleHelper.WriteColorLine("枚举注册", ConsoleColor.Green);
+        }
+    }

@@ -1,0 +1,256 @@
+﻿@using Data.Abstractions.Judge
+@{
+ var lowerName=EntityJudge.ToLower(Model.EntityName);
+}
+<template>
+	<div class="layout-padding">
+		<el-card shadow="hover" class="layout-padding-auto">
+			<div class="mb15">
+				<el-form :model="state.formData"  ref="searchFormRef">
+				<el-row :gutter="20">
+					<el-col :span="4">
+					<!-- <el-form-item label="xxx" prop="xxx">
+						<el-input v-model="state.formData.xxx" />
+					</el-form-item> -->
+					</el-col>
+					<el-col :span="6">
+						<el-form-item>
+						<el-button type="primary" class="ml10" @@click="searchEvent()">
+							<el-icon>
+								<ele-Search />
+							</el-icon>
+							查询
+						</el-button>
+						<el-button class="ml10" @@click="reset()">
+							<el-icon>
+								<ele-Brush />
+							</el-icon>
+							重置
+						</el-button>
+						</el-form-item>
+					</el-col>
+				</el-row>
+				</el-form>
+			</div>
+
+			<vxe-toolbar ref="xToolbar" :refresh="{ query: searchEvent }" custom>
+				<template #buttons>
+						<el-button v-auth="'@(lowerName).add'" type="primary" @@click="addEvent()">
+							<el-icon>
+								<ele-Plus />
+							</el-icon>
+							新增
+						</el-button>
+						<el-button v-auth="'@(lowerName).batchDel'" type="danger" class="ml10" @@click="batchDelEvent()">
+							<el-icon>
+								<ele-Delete />
+							</el-icon>
+							删除
+						</el-button>
+				</template>
+			</vxe-toolbar>
+			<div class="layout-table-height">
+			<vxe-table
+				height="auto"
+				border="inner"
+				ref="xTable"
+				:loading="state.tableConfig.loading"
+				:column-config="{ resizable: true }"
+				:data="state.tableConfig.rows"
+				:checkbox-config="{ labelField: 'title' }"
+			>
+				<vxe-column type="checkbox" width="60"></vxe-column>
+@foreach (var item in @Model.DbColumns){
+@if(!EntityJudge.IgnoreCol().Contains(@item.ColumnName.ToLower())){
+				@:<vxe-column field="@EntityJudge.ToLower(item.ColumnName)" title="@(item.ColumnDesc)"> </vxe-column>
+}
+}
+				<vxe-column field="creator" title="创建人"> </vxe-column>
+				<vxe-column field="created" title="创建时间"> </vxe-column>
+				<vxe-column title="操作" width="80" fixed="right">
+					<template #default="{ row }">
+						<vxe-button status="primary" type="text" transfer>
+							<template #default>操作</template>
+							<template #dropdowns>
+									<vxe-button status="primary" type="text" @@click="editEvent(row.id)" v-auth="'@(lowerName).update'">修改</vxe-button>
+								<!-- <vxe-button status="primary" type="text" @@click="delEvent(row.id)">删除</vxe-button> -->
+							</template>
+						</vxe-button>
+					</template>
+				</vxe-column>
+				<template #empty>
+					<div style="color: #f60;">
+						<img src="/src/assets/gif/emptData.gif">
+						<p>{{ state.emptData }}</p>
+					</div>
+				</template>
+			</vxe-table>
+		    </div>
+			<el-pagination
+				@@size-change="onHandleSizeChange"
+				@@current-change="onHandleCurrentChange"
+				background
+				class="mt15"
+				:pager-count="5"
+				v-model:page-sizes="state.tableConfig.pageSizes" 
+				v-model:current-page="state.tableConfig.page.index"
+				v-model:page-size="state.tableConfig.page.size"
+				layout="total, sizes, prev, pager, next, jumper"
+				:total="state.tableConfig.total"
+			>
+			</el-pagination>
+		</el-card>
+		<!-- 使用template 防止弹出框组件一开始就渲染,使用时渲染,不使用就销毁 -->
+		<template v-if="dialogState.showDialog">
+			<add ref="addRef" :id="dialogState.id"  @@close="close" @@refresh="refresh"></add>
+		</template>
+	</div>
+</template>
+
+<script lang="ts" setup>
+import { reactive, ref, onMounted, onUnmounted, defineAsyncComponent } from 'vue';
+import { ElMessageBox, ElMessage, FormInstance } from 'element-plus';
+import { VxeTableInstance, VxeToolbarInstance } from 'vxe-table';
+import { In@(Model.EntityName)SearchDto, @(Model.EntityName)TableDto, @(Model.EntityName)Api } from './dto';
+import _ from 'lodash';
+import useCurrentInstance from "@@/plugin/useCurrentInstance";
+
+const add = defineAsyncComponent(() => import('./component/add.vue'));
+const { proxy } = useCurrentInstance();
+const addRef = ref();
+const searchFormRef = ref<FormInstance>();
+
+/** 列表数据 */
+const state = reactive({
+	formData: new In@(Model.EntityName)SearchDto(),
+	tableConfig:new @(Model.EntityName)TableDto(),
+	emptData: '暂无数据',
+});
+
+/**
+ * 弹出框
+ */
+const dialogState = reactive({
+	showDialog: false,
+	title: '',
+	id: null,
+	isView: false
+})
+
+
+const xTable = ref<VxeTableInstance>({} as VxeTableInstance);
+const xToolbar = ref<VxeToolbarInstance>({} as VxeToolbarInstance);
+
+onMounted(async () => {
+	const $table = xTable.value;
+	const $toolbar = xToolbar.value;
+	$table.connect($toolbar);
+	await findList();
+});
+
+onUnmounted(() => {
+});
+/**
+ * 弹出框关闭事件
+ */
+const close = () => {
+	dialogState.showDialog = false;
+}
+
+/**
+ * 弹出框刷新事件
+ */
+const refresh = async () => {
+	dialogState.showDialog = false;
+	await findList();
+}
+
+
+/**
+* 查询
+*/
+const findList =async () => {
+	state.tableConfig.loading = true;
+	const page = state.tableConfig.page;
+	const params = Object.assign(state.formData, { page: page });
+
+	const tableResult = await @(Model.EntityName)Api.getPage(params);
+	state.tableConfig.loading = false;
+	if (tableResult == null) {
+		state.emptData = '服务器繁忙,请稍后再试!';
+		return;
+	}
+	if (tableResult.total == 0)
+		state.emptData = '暂无数据!';
+	state.tableConfig.rows = tableResult.rows;
+	state.tableConfig.total = tableResult.total;
+};
+
+/**
+ * 搜索
+ */
+const searchEvent = async () => {
+	await findList();
+};
+/**
+ * 重置查询表单
+ */
+const reset = () => {
+	searchFormRef.value?.resetFields();
+};
+/**
+ * 新增
+ */
+const addEvent = () => {
+	dialogState.id = null;
+	dialogState.showDialog = true;
+};
+/**
+ * 修改
+ */
+const editEvent = (id: string) => {
+	dialogState.id = id;
+	dialogState.showDialog = true;
+};
+/**
+* 批量删除
+*/
+const batchDelEvent = async () => {
+	let arryObj = xTable.value.getCheckboxRecords();
+	if (arryObj.length == 0) {
+		ElMessage.warning(`请选择需要删除的数据`);
+		return false;
+	}
+	let ids = _.map(arryObj, 'id');
+
+	await ElMessageBox.confirm(`此操作将永久删除数据,是否继续?`, '提示', {
+		confirmButtonText: '确认',
+		cancelButtonText: '取消',
+		type: 'warning',
+}).then(async () => {
+		const result = await @(Model.EntityName)Api.batchDel({ids:ids});
+		if (result == null && !result) {
+			ElMessage.warning(`删除失败`);
+			return;
+		}
+		ElMessage.success(`删除成功`);
+		await findList();
+
+	
+	});
+};
+
+
+// 分页改变
+const onHandleSizeChange = async (val: number) => {
+	state.tableConfig.page.size = val;
+	await findList();
+};
+// 当前页面
+const onHandleCurrentChange = async (val: number) => {
+	state.tableConfig.page.index = val;
+	await findList();
+};
+
+
+</script>

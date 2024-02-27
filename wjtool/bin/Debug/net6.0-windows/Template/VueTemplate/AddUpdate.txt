@@ -1,0 +1,140 @@
+﻿@using Data.Abstractions.Judge
+@{
+ var lowerName=EntityJudge.ToLower(Model.EntityName);
+}
+<template>
+	<vxe-modal
+		v-model="state.isShowDialog"
+		:title="state.text + '@(Model.TableDesc)'"
+			width="70%"
+		:loading="state.loading"
+		position="center"
+		show-zoom
+		resize
+		remember
+		show-footer
+		@@close="cancel"
+	>
+		<template #default>
+			<el-form label-width="120px" :model="state.formData" :rules="rules" ref="formRef">
+				<el-row :gutter="20">			
+@foreach (var item in @Model.DbColumns){	
+@if(!EntityJudge.IgnoreCol().Contains(@item.ColumnName.ToLower())){	
+				@:<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="mb20">
+				@:	<el-form-item label="@(item.ColumnDesc)" prop="@EntityJudge.ToLower(item.ColumnName)">
+				@:		<el-input v-model="state.formData.@EntityJudge.ToLower(item.ColumnName)" />
+				@:	</el-form-item>
+				@:</el-col>				   
+}
+}					
+				</el-row>
+			</el-form>
+		</template>
+		<template #footer>
+			<span class="dialog-footer">
+				<el-button @@click="cancel()">取 消</el-button>
+				<el-button type="primary" @@click="onSubmit(formRef)">{{ state.text }}</el-button>
+			</span>
+		</template>
+	</vxe-modal>
+</template>
+
+<script lang="ts" setup>
+import { ref, reactive, onMounted, onUnmounted } from 'vue';
+import type { FormInstance, FormRules } from 'element-plus';
+import { In@(Model.EntityName)AddUpdateDto, @(Model.EntityName)Api } from '../dto';
+import {  ElMessage } from 'element-plus';
+
+const props = defineProps({
+	id: {
+		type: String,
+		default: ''
+	},
+	isView: {
+		type: Boolean,
+		default: false
+	}
+});
+
+
+interface stateDto {
+	id?: @Model.VueType;
+	isShowDialog: boolean;
+	loading: boolean;
+	text: string;
+	formData: In@(Model.EntityName)AddUpdateDto;
+}
+
+const formRef = ref<FormInstance>();
+const state = reactive<stateDto>({
+	isShowDialog: false,
+	loading: false,
+	text: '新增',
+	formData:  new In@(Model.EntityName)AddUpdateDto(),
+});
+
+const show = async () => {
+	state.isShowDialog = true;
+	if (state.id) {
+		//编辑
+		state.text = '编辑';
+		state.loading = true;
+		const result = await @(Model.EntityName)Api.get(state.id);
+		state.loading = false;
+		if (result == null)
+			return;
+		state.formData = Object.assign(state.formData, result);
+	} else {
+		state.text = '新增';
+	}
+};
+const emit = defineEmits(['refresh','close']);
+const onSubmit = async (formEl: FormInstance | undefined) => {
+	if (!formEl) return;
+	await formEl.validate(async (valid) => {
+		if (valid) {
+			state.loading = true;
+			if (state.id) {
+			   const result = await @(Model.EntityName)Api.update(state.id, state.formData);
+				state.loading = false;
+				if (result == null) {
+					return;
+				}
+				ElMessage.success(`更新成功`);
+				
+			} else {
+				const result = await @(Model.EntityName)Api.add(state.formData);
+				state.loading = false;
+				if (result == null) {
+					return;
+				}
+				ElMessage.success(`新增成功`);
+				
+			}
+			//关闭弹出框
+				state.isShowDialog = false;
+			//发送事件
+				emit('refresh');
+		}
+	});
+};
+
+const cancel = () => {
+	//关闭弹出框
+state.isShowDialog = false;
+	//发送事件
+	emit('close');
+};
+
+const rules = reactive<FormRules>({
+		//name: [{ required: true, message: '名称不能为空', trigger: 'blur' }],
+});
+onMounted(async () => {
+	state.id = props.id;
+	await show();
+});
+onUnmounted(() => {
+	//重置表单
+	formRef.value?.resetFields();
+});
+</script>

@@ -1,0 +1,34 @@
+﻿@using Data.Abstractions.Judge
+@{
+ var lowerName=EntityJudge.ToLower(Model.EntityName);
+ var pTyte=EntityJudge.ToFirstUpper(Model.CShareType);
+}
+using MapsterMapper;
+using SqlSugar;
+using @(Model.ModuleModel.Name).Application.@(Model.EntityName).Dto;
+using @(Model.ModuleModel.Name).Domain.@(Model.EntityName);
+using Microsoft.AspNetCore.Mvc;
+using Wj.Data.Core.Service;
+using Wj.DynamicApi;
+using Wj.DynamicApi.Attributes;
+using Wj.Utils;
+using Wj.Utils.Annotations;
+
+namespace @(Model.ModuleModel.Name).Application.@(Model.EntityName);
+    /// <summary>
+    /// @(Model.TableDesc)服务
+    /// </summary>
+    [DynamicApi(Area = "@(Model.ModuleModel.Name)")]
+    [AllowWhenAuthenticated]
+    public class @(Model.EntityName)Service : ServiceAbstract<@(Model.EntityName)Entity, In@(Model.EntityName)Dto, Out@(Model.EntityName)Dto, In@(Model.EntityName)SearchDto, Out@(Model.EntityName)TableDto, @Model.CShareType>, IDynamicApi
+    {
+
+        private  I@(Model.EntityName)Repository _@(lowerName)Repository =App.GetService<I@(Model.EntityName)Repository>()!;
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        public @(Model.EntityName)Service()
+         {
+        }
+
+    }

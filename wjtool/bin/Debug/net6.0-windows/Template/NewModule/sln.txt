@@ -1,0 +1,11 @@
+﻿Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "@(Model.Id)_@(Model.Name)", "@(Model.Id)_@(Model.Name)", "{2298AA82-E7B7-4F19-A730-A306819A7828}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "@(Model.Name).Domain.Shared", "02_src\@(Model.Id)_@(Model.Name)\@(Model.Name).Domain.Shared\@(Model.Name).Domain.Shared.csproj", "{571F2A92-E4D4-472E-B516-248A8B7E98AD}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "@(Model.Name).Domain", "02_src\@(Model.Id)_@(Model.Name)\@(Model.Name).Domain\@(Model.Name).Domain.csproj", "{1E835C89-967C-4F73-A71C-A55D2A4809CE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "@(Model.Name).Domain.Sqlsugar", "02_src\@(Model.Id)_@(Model.Name)\@(Model.Name).Domain.Sqlsugar\@(Model.Name).Domain.Sqlsugar.csproj", "{9B125A80-5A6E-4D60-86F7-BCA8B4757D3D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "@(Model.Name).Application", "02_src\@(Model.Id)_@(Model.Name)\@(Model.Name).Application\@(Model.Name).Application.csproj", "{384D3FF8-CE46-4F93-803A-CAAF3E5EC7D6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "@(Model.Name).HttpApi", "02_src\@(Model.Id)_@(Model.Name)\@(Model.Name).HttpApi\@(Model.Name).HttpApi.csproj", "{01B85335-AA25-4D28-80AA-4DB94B98DD9C}"

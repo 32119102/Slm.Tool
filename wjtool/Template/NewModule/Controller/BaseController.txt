@@ -1,0 +1,11 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using Wj.Host.Web;
+
+
+namespace @(Model.Name).HttpApi;
+    [Area("@(Model.Name)")]
+    [ApiExplorerSettings(GroupName = "@(Model.Name)")]
+    public abstract class BaseController : ControllerAbstract
+    {
+
+    }

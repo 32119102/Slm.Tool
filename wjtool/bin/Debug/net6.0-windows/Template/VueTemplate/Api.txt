@@ -1,0 +1,108 @@
+﻿@using Data.Abstractions.Judge
+@{
+ var lowerName=EntityJudge.ToLower(Model.EntityName);
+}
+import request from '@@/utils/util.request';
+
+
+/**
+ * 分页
+ * @@param data 查询参数
+ * @@returns 
+ */
+function getPage(data: object) {
+	return request({
+		url: '/@(Model.ModuleModel.Name)/@(Model.EntityName)/GetPage',
+			method: 'get',
+			data,
+		});
+}
+
+
+/**
+ * 详情
+ * @@param id 主键id
+ * @@returns 
+ */
+function get(id: string) {
+	return request({
+			url: `/@(Model.ModuleModel.Name)/@(Model.EntityName)/Get/${id}`,
+			method: 'get',
+	});
+}
+
+/**
+ * 新增
+ * @@param data 新增实体
+ * @@returns 
+ */
+function add(data: object) {
+	return request({
+		url: '/@(Model.ModuleModel.Name)/@(Model.EntityName)/Add',
+		method: 'post',
+		data,
+	});
+}
+
+/**
+ * 更新
+ * @@param id 主表id 
+ * @@param data 更新实体
+ * @@returns 
+ */
+function update(id: string, data: object) {
+	return request({
+			url: `/@(Model.ModuleModel.Name)/@(Model.EntityName)/Update/${id}`,
+			method: 'put',
+			data,
+		});
+}
+
+/**
+ * 删除
+ * @@param id 主键
+ * @@returns 
+ */
+function del(id: string) {
+	return request({
+			url: `/@(Model.ModuleModel.Name)/@(Model.EntityName)/Del/${id}`,
+			method: 'delete',
+		});
+}
+
+/**
+ * 批量删除
+ * @@param data 删除参数
+ * @@returns 
+ */
+function batchDel(data: object) {
+	return request({
+			url: `/@(Model.ModuleModel.Name)/@(Model.EntityName)/BatchDel`,
+			method: 'delete',
+			data,
+		});
+}
+
+/**
+ * 下拉
+ * @@param data 参数
+ * @@returns 
+ */
+function getSelect(data?: object) {
+	return request({
+			url: `/@(Model.ModuleModel.Name)/@(Model.EntityName)/GetSelect`,
+			method: 'get',
+			data,
+		});
+}
+
+export {
+	getPage,
+	get,
+	add,
+	update, 
+	del, 
+	batchDel, 
+	getSelect,
+};
+

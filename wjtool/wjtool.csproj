@@ -1,0 +1,173 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
+  </PropertyGroup>
+
+  <!--<PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ApplicationIcon>Resources\icon.ico</ApplicationIcon>
+  </PropertyGroup>-->
+  
+  
+  
+  <ItemGroup>
+    <None Remove="icon.ico" />
+    <None Remove="Resources\cloud.png" />
+    <None Remove="Template\CshapCodeTemplate\Application\Dto\InAddUpdateDto.txt" />
+    <None Remove="Template\CshapCodeTemplate\Application\Dto\InSearchDto.txt" />
+    <None Remove="Template\CshapCodeTemplate\Application\Dto\OutDto.txt" />
+    <None Remove="Template\CshapCodeTemplate\Application\Dto\OutTableDto.txt" />
+    <None Remove="Template\CshapCodeTemplate\Application.Contracts\IService.txt" />
+    <None Remove="Template\CshapCodeTemplate\Application\MapsterConfig.txt" />
+    <None Remove="Template\CshapCodeTemplate\Application\Service.txt" />
+    <None Remove="Template\CshapCodeTemplate\Controllers\Controller.txt" />
+    <None Remove="Template\CshapCodeTemplate\Domain.Sqlsugar\Repository.txt" />
+    <None Remove="Template\CshapCodeTemplate\Domain\IRepository.txt" />
+    <None Remove="Template\CshapCodeTemplate\Entity.Extend.txt" />
+    <None Remove="Template\CshapCodeTemplate\Entity.txt" />
+    <None Remove="Template\CshapCodeTemplate\IRepository.txt" />
+    <None Remove="Template\CshapCodeTemplate\Repository.txt" />
+    <None Remove="Template\NewModule\Controller\AppModule.txt" />
+    <None Remove="Template\NewModule\Controller\BaseController.txt" />
+    <None Remove="Template\NewModule\Controller\csproj.txt" />
+    <None Remove="Template\NewModule\IRepository\AppModule.txt" />
+    <None Remove="Template\NewModule\IRepository\csproj.txt" />
+    <None Remove="Template\NewModule\IRepository\DbContext.txt" />
+    <None Remove="Template\NewModule\IService\AppModule.txt" />
+    <None Remove="Template\NewModule\IService\csproj.txt" />
+    <None Remove="Template\NewModule\Repository\AppModule.txt" />
+    <None Remove="Template\NewModule\Repository\csproj.txt" />
+    <None Remove="Template\NewModule\Service\AppModule.txt" />
+    <None Remove="Template\NewModule\Service\csproj.txt" />
+    <None Remove="Template\NewModule\Shared\AppModule.txt" />
+    <None Remove="Template\NewModule\Shared\csproj.txt" />
+    <None Remove="Template\NewModule\sln.txt" />
+    <None Remove="Template\VueTemplate\AddUpdate.txt" />
+    <None Remove="Template\VueTemplate\Api.txt" />
+    <None Remove="Template\VueTemplate\Dto.txt" />
+    <None Remove="Template\VueTemplate\List.txt" />
+  </ItemGroup>
+  
+  
+  
+  <ItemGroup>
+    <Content Include="Template\CshapCodeTemplate\Application\Dto\InAddUpdateDto.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Template\CshapCodeTemplate\Application\Dto\InSearchDto.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Template\CshapCodeTemplate\Application\Dto\OutDto.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Template\CshapCodeTemplate\Application\Dto\OutTableDto.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Template\CshapCodeTemplate\Application.Contracts\IService.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Template\CshapCodeTemplate\Application\MapsterConfig.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Template\CshapCodeTemplate\Application\Service.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Template\CshapCodeTemplate\Controllers\Controller.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Template\CshapCodeTemplate\Domain.Sqlsugar\Repository.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Template\CshapCodeTemplate\Domain\Entity.Extend.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Template\CshapCodeTemplate\Domain\Entity.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Template\CshapCodeTemplate\Domain\IRepository.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Template\NewModule\Controller\AppModule.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Template\NewModule\Controller\BaseController.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Template\NewModule\Controller\csproj.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Template\NewModule\IRepository\AppModule.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Template\NewModule\IRepository\csproj.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Template\NewModule\IRepository\DbContext.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Template\NewModule\IService\AppModule.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Template\NewModule\IService\csproj.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Template\NewModule\Repository\AppModule.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Template\NewModule\Repository\csproj.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Template\NewModule\Service\AppModule.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Template\NewModule\Service\csproj.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Template\NewModule\Shared\AppModule.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Template\NewModule\Shared\csproj.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Template\NewModule\sln.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Template\VueTemplate\AddUpdate.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Template\VueTemplate\Api.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Template\VueTemplate\Dto.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Template\VueTemplate\List.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="HandyControl" Version="3.3.0" />
+    <PackageReference Include="Microsoft.Toolkit.Mvvm" Version="7.1.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\00_Data\Adapters\Data.Adapters.Mysql\Data.Adapters.Mysql.csproj" />
+    <ProjectReference Include="..\00_Data\Adapters\Data.Adapters.Oracle\Data.Adapters.Oracle.csproj" />
+    <ProjectReference Include="..\00_Data\Adapters\Data.Adapters.SqlServer\Data.Adapters.SqlServer.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="icon.ico" />
+    <Resource Include="Resources\cloud.png" />
+  </ItemGroup>
+
+</Project>

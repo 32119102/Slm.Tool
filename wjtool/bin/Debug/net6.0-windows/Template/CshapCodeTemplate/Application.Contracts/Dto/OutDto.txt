@@ -1,0 +1,23 @@
+﻿@using Data.Abstractions.Judge
+using @(Model.ModuleModel.Name).Domain.Shared;
+
+namespace @(Model.ModuleModel.Name).Application.Contracts.@(Model.EntityName).Dto;
+
+	 /// <summary>
+    ///  返回详情Dto
+    /// </summary>
+    public class Out@(Model.EntityName)Dto
+    {
+	
+
+         @foreach (var item in @Model.DbColumns)
+		{	
+		@if(!EntityJudge.IgnoreCol().Contains(@item.ColumnName.ToLower())){		
+		@:/// <summary>
+		@:/// @item.ColumnDesc
+		@:/// </summary>				
+		@:public @EntityJudge.GetIsNull(item) @(EntityJudge.ToUpper(item.ColumnName))  { get; set; }
+		@:      
+		}
+		}
+    }

@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+ <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+  </PropertyGroup>
+
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\03_module\01_Host\Host.Web\Host.Web.csproj" />
+    <ProjectReference Include="..\@(Model.Name).Application\@(Model.Name).Application.csproj" />
+    <ProjectReference Include="..\@(Model.Name).Domain.Sqlsugar\@(Model.Name).Domain.Sqlsugar.csproj" />
+  </ItemGroup>
+
+</Project>

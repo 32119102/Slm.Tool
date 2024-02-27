@@ -1,0 +1,65 @@
+﻿<Border hc:ScrollViewer.IsInertiaEnabled="True"
+        x:Class="wjtool.UserControl.Main.LeftMainContent"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Background="{DynamicResource RegionBrush}"
+        xmlns:hc="https://handyorg.github.io/handycontrol"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        Margin="16,16,0,16"
+        CornerRadius="10"
+        Effect="{StaticResource EffectShadow4}">
+    <Border.Resources>
+        <Style x:Key="DemoInfoSortButtonStyle" BasedOn="{StaticResource ToggleButtonCustom}" TargetType="ToggleButton" x:Shared="False">
+            <Setter Property="Content">
+                <Setter.Value>
+                    <Border CornerRadius="4" BorderThickness="1" BorderBrush="{DynamicResource BorderBrush}" Background="{DynamicResource RegionBrush}" Height="30" Width="30">
+                        <Image Stretch="None" Source="/Resources/Img/LeftMainContent/SortAscending_grey_16x.png" />
+                    </Border>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="hc:StatusSwitchElement.CheckedElement">
+                <Setter.Value>
+                    <Border CornerRadius="4" Height="30" Width="30" BorderThickness="1" BorderBrush="{DynamicResource PrimaryBrush}" />
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Border.Resources>
+    <DockPanel>
+        <Button  DockPanel.Dock="Top" HorizontalAlignment="Stretch" Margin="10,10,10,4" Content="功能列表" BorderThickness="0"
+            Background="{DynamicResource SecondaryRegionBrush}" />
+        <Grid Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <hc:SearchBar
+                          IsRealTime="True"
+                          Style="{StaticResource SearchBarPlus}"
+                          hc:InfoElement.Placeholder="搜索"
+                          Margin="0,4,4,4" Tag="{Binding ElementName=ListBoxDemo}" />
+            <!--<ToggleButton Tag="{Binding ElementName=ListBoxDemo}" Name="ButtonStyleAscending" Grid.Row="0" Grid.Column="1" Style="{StaticResource DemoInfoSortButtonStyle}" />-->
+            <ListBox Name="ListBoxDemo" Padding="0" ScrollViewer.CanContentScroll="False"
+                     Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1"
+                     VirtualizingStackPanel.IsVirtualizing="True"
+                     BorderThickness="0" SelectionMode="Single"
+                     SelectedIndex="0"
+                     ItemsSource="{Binding LeftMainList}" SelectionChanged="ListBoxDemo_SelectionChanged">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <hc:HighlightTextBlock Margin="6,0,0,0"
+                                                   SourceText="{Binding Name}">
+                            </hc:HighlightTextBlock>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+                <ListBox.GroupStyle>
+                    <GroupStyle ContainerStyle="{StaticResource DemoGroupItemStyle}" />
+                </ListBox.GroupStyle>
+            </ListBox>
+        </Grid>
+    </DockPanel>
+</Border>

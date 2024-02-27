@@ -1,0 +1,12 @@
+﻿using Wj.Utils.Annotations;
+using Wj.Utils.Pagination;
+
+namespace @(Model.ModuleModel.Name).Application.Contracts.@(Model.EntityName).Dto;
+
+    /// <summary>
+    /// 查询Dto
+    /// </summary>
+    public class In@(Model.EntityName)SearchDto: QueryDto
+    {
+       
+    }

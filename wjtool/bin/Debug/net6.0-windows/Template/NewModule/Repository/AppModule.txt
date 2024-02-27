@@ -1,0 +1,15 @@
+﻿using Wj.Modularity.Abstractions;
+using Wj.Modularity.Core;
+
+namespace @(Model.Name).Domain.Sqlsugar;
+
+    /// <summary>
+    /// 数据库操作
+    /// </summary>
+    [DependsOn(
+    typeof(@(Model.Name)DomainModule)
+     )]
+    public class @(Model.Name)DomainSqlsugarModule : AppModule
+    {
+      
+    }

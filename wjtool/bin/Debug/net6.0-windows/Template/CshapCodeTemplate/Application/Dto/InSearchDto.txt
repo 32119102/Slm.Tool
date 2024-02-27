@@ -1,0 +1,13 @@
+﻿using Wj.Utils.Annotations;
+using Wj.Utils.Pagination;
+
+namespace @(Model.ModuleModel.Name).Application.@(Model.EntityName).Dto;
+
+    /// <summary>
+    /// 查询Dto
+    /// </summary>
+    public class In@(Model.EntityName)SearchDto: QueryDto
+    {
+           //[Search(ConditionalType = WjConditionalType.Like, FieldName = "NICKNAME")]
+          //public string? Name { get; set; }
+    }

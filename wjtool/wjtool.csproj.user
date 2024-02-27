@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup />
+  <ItemGroup>
+    <ApplicationDefinition Update="App.xaml">
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="UserControl\Base\ProLoadIngDialog.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UserControl\Controls\CshapCodeCtl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UserControl\Main\LeftMainContent.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UserControl\Main\MainContent.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UserControl\Main\MainWindowContent.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="MainWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Resources\My.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UserControl\Base\ProLoadIngDialog.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UserControl\Controls\CshapCodeCtl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UserControl\Main\LeftMainContent.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UserControl\Main\MainContent.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UserControl\Main\MainWindowContent.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,28 @@
+﻿@using Data.Abstractions.Judge
+@{
+   var baseStr= EntityJudge.BaseConfig(@Model);   
+}
+using SqlSugar;
+using Wj.Data.Abstractions.Entities;
+using @(Model.ModuleModel.Name).Domain.Shared;
+
+namespace @(Model.ModuleModel.Name).Domain.@(Model.EntityName);
+    /// <summary>
+    /// @(Model.TableDesc)
+    /// </summary>
+    [SugarTable("@(Model.TableName)")]
+    [Tenant("@(Model.ModuleModel.Name)")]
+    public partial class @(Model.EntityName)Entity 
+    {
+        @foreach (var item in @Model.DbColumns)
+		{	
+
+		@:/// <summary>
+		@:/// @item.ColumnDesc
+		@:/// </summary>			
+		@:[SugarColumn(ColumnName = "@item.ColumnName"@EntityJudge.IsPrimaryKey(item.IsPrimaryKey)
+		@:public @EntityJudge.GetIsNull(item) @(EntityJudge.ToUpper(item.ColumnName))  { get; set; }
+		@:      
+		}
+		
+    }

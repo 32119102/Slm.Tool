@@ -1,0 +1,84 @@
+﻿<UserControl x:Class="wjtool.UserControl.Controls.NewModuleCtl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:wjtool.UserControl.Controls"
+             xmlns:hc="https://handyorg.github.io/handycontrol"
+             mc:Ignorable="d"
+             Height="900"
+             Width="1200">
+    <Border  Margin="0 20 0 0"   CornerRadius="15">
+        <hc:SimpleStackPanel Background="{DynamicResource RegionBrush}"   hc:TitleElement.TitleWidth="120">
+
+            <hc:Row Margin="{StaticResource ControlMargin}"     Height="36">
+                <hc:Col Span="20">
+                    <hc:TextBox
+                   hc:InfoElement.TitlePlacement="Left" hc:InfoElement.Title="模块名称"
+                          hc:InfoElement.Necessary="True"
+                   ShowClearButton="True"
+                      Text="{Binding Path=Module}" />
+                </hc:Col>
+            </hc:Row>
+
+            <hc:Row Margin="{StaticResource ControlMargin}"     Height="36">
+                <hc:Col Span="20">
+                    <hc:TextBox
+                      hc:InfoElement.TitlePlacement="Left"
+                      hc:InfoElement.Title="保存路径"
+                      ShowClearButton="True"
+                      hc:InfoElement.Necessary="True"
+                      Text="{Binding Path=SaveCodePath}" />
+                </hc:Col>
+                <hc:Col Span="4">
+                    <Button  hc:IconElement.Geometry="{StaticResource DragHorizontalGeometry}"
+                             Width="100"
+                    Style="{StaticResource ButtonPrimary}"
+                          Command="{Binding SelectCodePathCommand}"
+                             Margin="10 0 0 0" HorizontalAlignment="Left" />
+                </hc:Col>
+            </hc:Row>
+            <hc:Row Margin="130,0,0,5"     Height="36">
+                <hc:Col Span="20">
+                    <Border Style="{StaticResource BorderTipInfo}" Margin="0,0,25,0">
+                        <TextBlock Text="保存路径需要定位到 Src目录下" />
+                    </Border>
+                </hc:Col>
+            </hc:Row>
+
+            <hc:Row Margin="130 5 5 5"     Height="36">
+                <hc:Col Span="20">
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox Content="IService"  IsChecked="{Binding Path=IService}"   Margin="{StaticResource CheckMargin}" />
+                        <CheckBox Content="Service"  IsChecked="{Binding Path=Service}"   Margin="{StaticResource CheckMargin}" />
+                        <CheckBox Content="IRepository"  IsChecked="{Binding Path=IRepository}"   Margin="{StaticResource CheckMargin}" />
+                        <CheckBox Content="Repository"  IsChecked="{Binding Path=Repository}"   Margin="{StaticResource CheckMargin}" />
+                        <CheckBox Content="Controller"  IsChecked="{Binding Path=Controller}"   Margin="{StaticResource CheckMargin}" />
+                        <CheckBox Content="Shared"  IsChecked="{Binding Path=Shared}"   Margin="{StaticResource CheckMargin}" />
+                    </StackPanel>
+                </hc:Col>
+            </hc:Row>
+
+            <hc:Row Margin="130 5 5 5"  Height="36">
+                <hc:Col Span="20">
+                    <StackPanel Orientation="Horizontal">
+                        <Button  Content="生成代码" Width="100"
+                          Style="{StaticResource ButtonPrimary}"
+                          Command="{Binding CreateCodeCommand}"
+                          hc:IconElement.Geometry="{StaticResource SL.SaveCode}" />
+                        <Button Content="保存配置" Width="100"
+                          Style="{StaticResource ButtonPrimary}"
+                          Margin="50 0 0 0" HorizontalAlignment="Left"
+                          Command="{Binding SaveConfigCommand}"
+                          hc:IconElement.Geometry="{StaticResource SL.SaveConfig}" />
+                        <Button Content="加载配置" Width="100"
+                            Style="{StaticResource ButtonPrimary}"
+                            Margin="10 0 0 0" HorizontalAlignment="Left"
+                            Command="{Binding LoadConfigCommand}"
+                            hc:IconElement.Geometry="{StaticResource SL.LoadConfig}" />
+                    </StackPanel>
+                </hc:Col>
+            </hc:Row>
+        </hc:SimpleStackPanel>
+    </Border>
+</UserControl>

@@ -1,0 +1,16 @@
+﻿@using Data.Abstractions.Judge
+@{
+   var baseStr= EntityJudge.IRepository(@Model);   
+}
+using SqlSugar;
+using Wj.Data.Abstractions;
+using Wj.Utils.Pagination;
+
+namespace @(Model.ModuleModel.Name).Domain.@(Model.EntityName);
+    /// <summary>
+    /// 接口仓储(@(Model.TableDesc))
+    /// </summary>
+    public interface I@(Model.EntityName)Repository : IBaseRepository<@(Model.EntityName)Entity>
+    {
+    
+    }
